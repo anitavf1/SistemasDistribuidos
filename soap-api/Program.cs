@@ -10,7 +10,7 @@ using SoapCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSoapCore();
-builder.Services.AddScoped<IUserRepository, UserRespository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserContract, UserService>();
 
 builder.Services.AddDbContext<RelationalDbContext>(options => 
