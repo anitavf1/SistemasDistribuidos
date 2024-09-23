@@ -68,7 +68,7 @@ public static class UserMapper
     }
 
 
-    
+
 
 }
 
