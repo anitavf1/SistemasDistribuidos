@@ -1,4 +1,6 @@
 
+using SoapApi.Dtos;
+
 using SoapApi.Models;
 
 namespace SoapApi.Repositories;
