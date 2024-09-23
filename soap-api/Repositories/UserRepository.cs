@@ -66,5 +66,4 @@ public class UserRepository : IUserRepository {
         return userExistent.ToModel();
     }
 
-
 }

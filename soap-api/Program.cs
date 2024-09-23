@@ -1,5 +1,4 @@
 
-
 using Microsoft.EntityFrameworkCore;
 using SoapApi.Contracts;
 using SoapApi.Infrastructure;

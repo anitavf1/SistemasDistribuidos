@@ -1,9 +1,7 @@
 using RestApi.Models;
 using RestApi.Repositories;
 
-
 namespace RestApi.Services;
-
 public class GroupService : IGroupService
 {
     private readonly IGroupRepository _groupRepository;
@@ -20,13 +18,22 @@ public class GroupService : IGroupService
             return null;
         }
 
-        return new GroupUserModel
-        {
-
+        return new GroupUserModel {
             Id = group.Id,
             Name = group.Name,
             CreationDate = group.CreationDate
         };
+    }
+
+    public async Task<IList<GroupUserModel>> GetAllByNameAsync(string name, CancellationToken cancellationToken)
+    {
+        var groups = await _groupRepository.GetAllByNameAsync(name, cancellationToken);
+
+        return groups.Select(group => new GroupUserModel {
+            Id = group.Id,
+            Name = group.Name,
+            CreationDate = group.CreationDate
+        }).ToList();
     }
 
 }

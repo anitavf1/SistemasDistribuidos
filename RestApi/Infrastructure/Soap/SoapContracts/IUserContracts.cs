@@ -10,6 +10,10 @@ public interface IUserContract{
     public Task <UserResponseDto> GetUserById(Guid userId, CancellationToken cancellationToken);
 
     [OperationContract]
+
+    public Task <UserResponseDto> GetUserByName(String userName, CancellationToken cancellationToken);
+    [OperationContract]
+
     public Task<IList<UserResponseDto>> GetAll(CancellationToken cancellationToken);
     [OperationContract]
     public Task<IList<UserResponseDto>> GetAllByEmail(string email, CancellationToken cancellationToken);
