@@ -21,8 +21,8 @@ namespace ChatP2P
                 Console.WriteLine("Connected to peer :D");
 
             
-                var receiveTask = Task.Run(() => ReceiveMessage());
-                var sendTask = Task.Run(() => SendMessage());
+                var receiveTask = ReceiveMessage();
+                var sendTask = SendMessage();
 
                 await Task.WhenAll(receiveTask, sendTask);
             }
@@ -41,8 +41,8 @@ namespace ChatP2P
                 _client = await _listener.AcceptTcpClientAsync();
                 Console.WriteLine("Connected to peer :D");
 
-                var receiveTask = Task.Run(() => ReceiveMessage());
-                var sendTask = Task.Run(() => SendMessage());
+                var receiveTask = ReceiveMessage();
+                var sendTask = SendMessage();
 
                 await Task.WhenAll(receiveTask, sendTask);
             }
