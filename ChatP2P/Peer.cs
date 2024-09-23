@@ -19,9 +19,10 @@ namespace ChatP2P
             {
                 _client = new TcpClient(ipAddress, Convert.ToInt32(port));
                 Console.WriteLine("Connected to peer :D");
-            
-                var receiveTask = ReceiveMessage();
-                var sendTask = SendMessage();
+
+                // Ejecutar la recepción y el envío de mensajes en paralelo
+                var receiveTask = Task.Run(() => ReceiveMessage());
+                var sendTask = Task.Run(() => SendMessage());
                 await Task.WhenAll(receiveTask, sendTask);
             }
             catch (Exception ex)
@@ -39,8 +40,10 @@ namespace ChatP2P
                 _client = await _listener.AcceptTcpClientAsync();
                 Console.WriteLine("Connected to peer :D");
 
-                var receiveTask = ReceiveMessage();
-                var sendTask = SendMessage();
+                // Ejecutar la recepción y el envío de mensajes en paralelo
+                var receiveTask = Task.Run(() => ReceiveMessage());
+                var sendTask = Task.Run(() => SendMessage());
+
                 await Task.WhenAll(receiveTask, sendTask);
             }
             catch (Exception ex)
