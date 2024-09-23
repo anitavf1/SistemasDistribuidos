@@ -14,6 +14,12 @@ public class RelationalDbContext : DbContext
 
 
     public DbSet<UserEntity> Users { get; set; }
+
+
+    internal async Task UpdateAsync(UserEntity userEntity)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 
