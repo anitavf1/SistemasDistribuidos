@@ -1,3 +1,4 @@
+
 [Dd]ebug/
 [Rr]elease/
 x64/
@@ -56,4 +57,6 @@ docker-compose.override.yml
 Thumbs.db
 
 *.tmp
+
 *.temp
+
