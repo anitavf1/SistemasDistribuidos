@@ -1,0 +1,5 @@
+C:\Users\dilor\Dev\SistemasDistribuidos\ChatP2P\obj\Debug\net8.0\ChatP2P.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dilor\Dev\SistemasDistribuidos\ChatP2P\obj\Debug\net8.0\ChatP2P.AssemblyInfoInputs.cache
+C:\Users\dilor\Dev\SistemasDistribuidos\ChatP2P\obj\Debug\net8.0\ChatP2P.AssemblyInfo.cs
+C:\Users\dilor\Dev\SistemasDistribuidos\ChatP2P\obj\Debug\net8.0\ChatP2P.csproj.CoreCompileInputs.cache
+C:\Users\dilor\Dev\SistemasDistribuidos\ChatP2P\obj\Debug\net8.0\ChatP2P.sourcelink.json
