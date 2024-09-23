@@ -1,9 +1,11 @@
 using RestApi.Models;
 using RestApi.Repositories;
+
 namespace RestApi.Services;
 public class GroupService : IGroupService
 {
     private readonly IGroupRepository _groupRepository;
+
     public GroupService(IGroupRepository groupRepository)
     {
         _groupRepository = groupRepository;
@@ -15,6 +17,7 @@ public class GroupService : IGroupService
         {
             return null;
         }
+
         return new GroupUserModel {
             Id = group.Id,
             Name = group.Name,
@@ -32,4 +35,5 @@ public class GroupService : IGroupService
             CreationDate = group.CreationDate
         }).ToList();
     }
+
 }

@@ -1,4 +1,6 @@
+
 using SoapApi.Dtos;
+
 using SoapApi.Models;
 
 namespace SoapApi.Repositories;
@@ -14,6 +16,7 @@ public interface IUserRepository{
 
     public Task <UserModel> UpdateAsync(UserModel user, CancellationToken cancellationToken);
     
+
 }
 
 

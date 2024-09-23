@@ -12,6 +12,7 @@ public class UserService : IUserContract {
         _userRepository = userRepository;
     }
 
+
     public async Task<bool> DeleteUserById(Guid userId, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
@@ -30,6 +31,7 @@ public class UserService : IUserContract {
         var createdUser = await _userRepository.CreateAsync(user, cancellationToken);
         return createdUser.ToDto();
     }
+
 
     public async Task<IList<UserResponseDto>> GetAll(CancellationToken cancellationToken)
     {
@@ -67,5 +69,6 @@ public class UserService : IUserContract {
     }
 
     
+
 }
 
