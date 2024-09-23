@@ -23,7 +23,6 @@ namespace ChatP2P
                 // Ejecutar la recepción y el envío de mensajes en paralelo
                 var receiveTask = Task.Run(() => ReceiveMessage());
                 var sendTask = Task.Run(() => SendMessage());
-
                 await Task.WhenAll(receiveTask, sendTask);
             }
             catch (Exception ex)
