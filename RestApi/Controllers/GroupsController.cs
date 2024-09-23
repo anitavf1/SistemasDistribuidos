@@ -24,4 +24,6 @@ public class GroupsController : ControllerBase {
         return Ok(group.ToDto());
     }
 
+
 }
+

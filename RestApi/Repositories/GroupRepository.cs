@@ -1,7 +1,9 @@
+
 using MongoDB.Driver;
 using RestApi.Infrastructure.Mongo;
 using RestApi.Mappers;
 using RestApi.Models;
+
 
 namespace RestApi.Repositories;
 public class GroupRepository : IGroupRepository
@@ -14,6 +16,7 @@ public class GroupRepository : IGroupRepository
         _groups = database.GetCollection<GroupEntity>(configuration.GetValue<string>("MongoDb:Groups:CollectionName"));
     }
     
+
     public async Task<GroupModel>GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         try
@@ -28,5 +31,5 @@ public class GroupRepository : IGroupRepository
         }
     }
 
-    
+
 }

@@ -1,6 +1,7 @@
 using RestApi.Models;
 using RestApi.Repositories;
 
+
 namespace RestApi.Services;
 
 public class GroupService : IGroupService
@@ -18,11 +19,14 @@ public class GroupService : IGroupService
         {
             return null;
         }
+
         return new GroupUserModel
         {
+
             Id = group.Id,
             Name = group.Name,
             CreationDate = group.CreationDate
         };
     }
+
 }
