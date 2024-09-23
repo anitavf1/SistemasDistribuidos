@@ -39,4 +39,6 @@ public class UserService : IUserContract {
 
         throw new FaultException("User not found");
     }
+
 }
+

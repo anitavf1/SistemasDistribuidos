@@ -4,11 +4,13 @@ using SoapApi.Infrastructure;
 using SoapApi.Models;
 using SoapApi.Mappers;
 
+
 namespace SoapApi.Repositories;
 
 public class UserRespository : IUserRepository {
     private readonly RelationalDbContext _dbContext;
     public UserRespository(RelationalDbContext dbContext) {
+
         _dbContext = dbContext;
     }
     public async Task<UserModel> GetByIdAsync(Guid id, CancellationToken cancellationToken) {
@@ -20,11 +22,11 @@ public class UserRespository : IUserRepository {
         var users = await _dbContext.Users.AsNoTracking().Select(user => user.ToModel()).ToListAsync(cancellationToken);
         return users;
     }
-    
+
     public async Task<IList<UserModel>> GetAllByEmailAsync(string email, CancellationToken cancellationToken)
     {
          var users = await _dbContext.Users.AsNoTracking().Where(user => user.Email.Contains(email)).Select(user => user.ToModel()).ToListAsync(cancellationToken);
          return users;
     }
-    
+
 }
