@@ -9,9 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IMongoClient, MongoClient>(s=>new MongoClient(builder.Configuration.GetValue<string>("MongoDb:Groups:ConnectionString")));
-builder.Services.AddScoped<IGroupRepository, GroupRepository>();
+builder.Services.AddSingleton<IMongoClient, MongoClient>(s => new MongoClient(builder.Configuration.GetValue<string>("MongoDb:Groups:ConnectionString")));
+
+
+//Scoped, Transient, Singleton (revisar inyección de dependencias)
 builder.Services.AddScoped<IGroupService, GroupService>();
+builder.Services.AddScoped<IGroupRepository, GroupRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
@@ -25,4 +29,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
+
+ 
 
