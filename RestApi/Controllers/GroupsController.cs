@@ -26,6 +26,12 @@ public class GroupsController : ControllerBase {
 
         return Ok(group.ToDto());
     }
+     [HttpGet]
+    public async Task<ActionResult<IList<GroupResponse>>> GetGroupByName([FromQuery] string name, 
+    [FromQuery] int page, [FromQuery] int pageS, [FromQuery] string orderBy, CancellationToken cancellationToken){
+        
+        var groups = await _groupService.GetGroupByNameAsync(name, page, pageS, orderBy, cancellationToken);
+
 
     [HttpGet("like-name")]
     public async Task<ActionResult<IList<GroupResponse>>> GetGroupByName([FromQuery] string name, 
@@ -79,5 +85,5 @@ public class GroupsController : ControllerBase {
         };
     }
 
-    
+
 }
