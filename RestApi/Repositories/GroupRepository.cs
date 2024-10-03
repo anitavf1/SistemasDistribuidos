@@ -1,4 +1,6 @@
+
 using System.Reflection.Metadata;
+
 using MongoDB.Bson;
 using MongoDB.Driver;
 using RestApi.Infrastructure.Mongo;
@@ -13,6 +15,7 @@ public class GroupRepository : IGroupRepository
         var database = mongoClient.GetDatabase(configuration.GetValue<string>("MongoDb:Groups:DatabaseName"));
         _groups = database.GetCollection<GroupEntity>(configuration.GetValue<string>("MongoDb:Groups:CollectionName"));
     }
+
 
     public async Task<GroupModel> CreateAsync(string name, Guid[] Users, CancellationToken cancellationToken)
     {
@@ -49,6 +52,7 @@ public class GroupRepository : IGroupRepository
         return groups.Select(group => group.ToModel()).ToList();
     }
 
+
     public async Task<GroupModel> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         try {
@@ -61,7 +65,9 @@ public class GroupRepository : IGroupRepository
         }
     }
     public async Task<IList<GroupModel>> GetByNameAsync(string name, int page, int pageS, string orderBy, CancellationToken cancellationToken){
+
         var filter = Builders<GroupEntity>.Filter.Regex(group => group.Name, name);
+
         
         var sort = Builders<GroupEntity>.Sort.Ascending(n => n.Name);
 

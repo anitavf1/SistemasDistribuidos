@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration.UserSecrets;
+
 using RestApi.Exceptions;
+
 using RestApi.Models;
 using RestApi.Repositories;
 
@@ -16,6 +18,7 @@ public class GroupService : IGroupService
         _groupRepository = groupRepository;
         _userRepository = userRepository;
     }
+
 
     public async Task<GroupUserModel> CreateGroupAsync(string name, Guid[] users, CancellationToken cancellationToken )
     {
@@ -80,6 +83,7 @@ public class GroupService : IGroupService
                 .ToList()
         }));
     }
+
 
     public async Task<GroupUserModel> GetGroupByIdAsync(string id, CancellationToken cancellationToken)
     {
