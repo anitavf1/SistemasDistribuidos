@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using RestApi.Exceptions;
 using RestApi.Models;
@@ -29,15 +30,23 @@ public class GroupService : IGroupService
 
        var group= await _groupRepository.CreateAsync(name, users, cancellationToken);
        
+
+       var userComparision= await Task.WhenAll(
+                group.Users.Select(userId => _userRepository.GetByIdAsync(
+                    userId, cancellationToken)));
+
+        if(userComparision.Any(user=>user is null)){
+            throw new InvalidGroupUserRequest();
+        }
+
        return new GroupUserModel {
             Id = group.Id,
             Name = group.Name,
             CreationDate = group.CreationDate,
-            Users = (await Task.WhenAll(
-                group.Users.Select(userId => _userRepository.GetByIdAsync(
-                    userId, cancellationToken)))).Where(user => user != null)
-                    .ToList()
+            Users = userComparision
         };
+
+    
     }
 
     
@@ -112,4 +121,33 @@ public class GroupService : IGroupService
         }));
     }
 
+    public async Task UpdateGroupAsync(string id, string name, Guid[] users, CancellationToken cancellationToken)
+    {
+        if(users.Length==0){
+        throw new InvalidGroupRequestFormatException();
+       }
+       var group= await _groupRepository.GetByIdAsync(id, cancellationToken);
+       if(group is null){
+        throw new GroupNotFoundException();
+       }
+
+       var groups= await _groupRepository.GetByExactNameAsync(name,1,10,"Name", cancellationToken);
+       if(groups.Any(s=>s.Id!=id)){
+            throw new GroupAlreadyExistsException();
+       }
+
+       var userComparision= await Task.WhenAll(
+                group.Users.Select(userId => _userRepository.GetByIdAsync(
+                    userId, cancellationToken)));
+
+        if(userComparision.Any(user=>user is null)){
+            throw new InvalidGroupUserRequest();
+        }
+
+    
+       await _groupRepository.UpdateGroupAsync(id, name, users, cancellationToken);
+
+        
+
+    }
 }

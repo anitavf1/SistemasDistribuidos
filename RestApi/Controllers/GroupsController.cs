@@ -51,14 +51,20 @@ public class GroupsController : ControllerBase {
         }
     }
 
-    [HttpPost]
-    public async Task<ActionResult<GroupResponse>> CreatedGroup([FromBody] CreateGroupRequest groupRequest, CancellationToken cancellationToken){
+    
+    
+    [HttpPut("{id}")]
+    public async Task<IActionResult>UpdateGroup(string id,[FromBody] UpdateGroupRequest groupRequest, CancellationToken cancellationToken){
         try{
-
-            var group = await _groupService.CreateGroupAsync(groupRequest.Name, groupRequest.Users, cancellationToken);
-            return CreatedAtAction(nameof(GetGroupById), new {id = group.Id}, group.ToDto());
-
-        }catch(InvalidGroupRequestFormatException){
+            
+            await _groupService.UpdateGroupAsync(id,groupRequest.Name, groupRequest.Users, cancellationToken);
+            return NoContent();
+        
+        }catch(GroupNotFoundException)
+        {
+            return NotFound();
+        }
+        catch(InvalidGroupRequestFormatException){
             
             return BadRequest(NewValidationProblemDetails("One or more validation errors occurred", HttpStatusCode.BadRequest, new Dictionary<string, string[]>{
                 {"Groups",["Users array is empty"]}
@@ -68,6 +74,11 @@ public class GroupsController : ControllerBase {
             return Conflict(NewValidationProblemDetails("One or more validation errors occurred", HttpStatusCode.Conflict, new Dictionary<string, string[]>{
                 {"Groups",["Group with same name already exists"]}
             }));
+        }catch(InvalidGroupUserRequest){
+            return Conflict(NewValidationProblemDetails("One or more validation errors occurred", HttpStatusCode.NotFound, new Dictionary<string, string[]>{
+                {"Groups",["This user is not valid"]}
+            }));
+
         }
     }
 
