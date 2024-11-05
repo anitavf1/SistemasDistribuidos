@@ -16,4 +16,9 @@ public interface IGroupService {
 
     Task <GroupUserModel> CreateGroupAsync(string name, Guid [] Users, CancellationToken cancellationToken);
 
+    Task UpdateGroupAsync(string id, string name, Guid[] users, CancellationToken cancellationToken);
+
+    
+
+
 }
