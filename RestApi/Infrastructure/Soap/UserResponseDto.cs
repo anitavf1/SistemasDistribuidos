@@ -2,7 +2,9 @@ using System.Runtime.Serialization;
 
 namespace RestApi.Infrastructure.Soap;
 
-[DataContract(Namespace = "http://schemas.datacontract.org/2004/07/SoapApi2.Dtos")]
+
+[DataContract(Namespace = "http://schemas.datacontract.org/2004/07/SoapApi.Dtos")]
+
 public class UserResponseDto
 {
     [DataMember(Order = 5)]
