@@ -13,7 +13,6 @@ public interface IGroupRepository
 
     Task <GroupModel> CreateAsync(string name, Guid [] Users, CancellationToken cancellationToken);
 
-    Task UpdateGroupAsync(string id, string name, Guid[] users, CancellationToken cancellationToken);
 }
 
 
