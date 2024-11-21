@@ -1,0 +1,44 @@
+hydra-maester:
+  image:
+    tag: v0.0.35-arm64
+image:
+  repository: oryd/hydra
+  tag: v2.2.0-arm64
+ingress:
+  public:
+    enabled: true
+    hosts:
+      - host: public.hydra.test
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+  admin:
+    enabled: true
+    hosts:
+      - host: admin.hydra.test
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+hydra:
+  dangerousForceHTTTP: true
+  admin:
+    port: 4445
+  public:
+    port: 4444
+  config:
+    dsn: "postgres://hydra:hydra_password@hydra-postgresql.databases.svc.cluster.local:5432/hydra?sslmode=disable"
+    urls:
+      self:
+        issuer: http://public.hydra.test/
+    secrets:
+      system: ["nvkndklq3k2kf825","akv72hdyw638af39"]
+    serve:
+      admin:
+        port: 4445
+      public:
+        port: 4444
+    strategies:
+      access_token: "jwt"
+  dev: true
+  automigration:
+    enabled: true

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: groups-api
+  namespace: backend-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: groups-api
+  template: 
+    metadata:
+      labels:
+        app: groups-api
+    spec:
+      containers:
+      - name: groups-api
+        image: localhost:5000/groups-api:10
+        env:
+          - name: "UserServiceEndpoint"
+            value: "https://users-api-svc.backend-api.svc.cluster.local:8080/UserService.svc"
+          - name: "Authentication_Authority"
+            value: "http://public.hydra.test"
+          - name: "Authentication_Issuer"
+            value: "http://public.hydra.test/"
+
+          - name: "MongoDb__Groups__ConnectionString"
+            valueFrom:
+              secretKeyRef:
+                name: groups-api-secrets
+                key: MongoDb__Groups__ConnectionString
+
+        ports:
+          - containerPort: 8083

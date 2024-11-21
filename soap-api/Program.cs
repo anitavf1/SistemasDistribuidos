@@ -5,6 +5,10 @@ using SoapApi.Infrastructure;
 using SoapApi.Repositories;
 using SoapApi.Services;
 using SoapCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+using System.Drawing;
+using Microsoft.IdentityModel.Tokens;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,8 +24,17 @@ builder.Services.AddSoapCore();
 
 builder.Services.AddDbContext<RelationalDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+    //ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+    options.UseMySql(
+    builder.Configuration.GetConnectionString("DefaultConnection"),
+    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
 });
+
+
 
 var app = builder.Build();
 app.UseSoapEndpoint<IUserContract>("/UserService.svc", new SoapEncoderOptions());
