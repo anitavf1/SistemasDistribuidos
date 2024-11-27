@@ -4,9 +4,11 @@ using RestApi.Mappers;
 using RestApi.Services;
 using RestApi.Exceptions;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 namespace RestApi.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 public class GroupsController : ControllerBase {
     private readonly IGroupService _groupService;
@@ -17,6 +19,7 @@ public class GroupsController : ControllerBase {
 
     // localhost:port/groups/28728723
     [HttpGet("{id}")]
+    [Authorize(Policy ="Read")]
     public async Task<ActionResult<GroupResponse>> GetGroupById(string id, CancellationToken cancellationToken) {
         var group = await _groupService.GetGroupByIdAsync(id, cancellationToken);
 
@@ -40,6 +43,8 @@ public class GroupsController : ControllerBase {
 
 
     [HttpDelete("{id}")]
+    [Authorize(Policy ="Write")]
+
 
     public async Task<IActionResult> DeleteGroup(string id, CancellationToken cancellationToken){
         try

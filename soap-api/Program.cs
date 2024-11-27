@@ -5,7 +5,6 @@ using SoapApi.Infrastructure;
 using SoapApi.Repositories;
 using SoapApi.Services;
 using SoapCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using System.Drawing;
 using Microsoft.IdentityModel.Tokens;
