@@ -34,13 +34,13 @@ public class GroupService : IGroupService
        var group= await _groupRepository.CreateAsync(name, users, cancellationToken);
        
 
-
        var userComparision= await Task.WhenAll(
                 group.Users.Select(userId => _userRepository.GetByIdAsync(
                     userId, cancellationToken)));
 
         if(userComparision.Any(user=>user is null)){
             throw new InvalidGroupUserRequest();
+
 
        return new GroupUserModel {
             Id = group.Id,
@@ -50,6 +50,7 @@ public class GroupService : IGroupService
         };
 
     
+
     }
 
     
@@ -67,7 +68,6 @@ public class GroupService : IGroupService
     {
         var groups = await _groupRepository.GetByExactNameAsync(name, page, pageS, orderBy,  cancellationToken);
     
-
         if (groups == null || !groups.Any())
         {
             return new List<GroupUserModel>(); 
@@ -84,7 +84,6 @@ public class GroupService : IGroupService
                 .ToList()
         }));
     }
-
 
     public async Task<GroupUserModel> GetGroupByIdAsync(string id, CancellationToken cancellationToken)
     {

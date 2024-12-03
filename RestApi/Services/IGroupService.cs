@@ -2,7 +2,6 @@
 using RestApi.Models;
 
 
-
 namespace RestApi.Services;
 
 public interface IGroupService {
@@ -14,11 +13,10 @@ public interface IGroupService {
 
     Task DeleteGroupByIdAsync(string id, CancellationToken cancellationToken);
 
-    Task <GroupUserModel> CreateGroupAsync(string name, Guid [] Users, CancellationToken cancellationToken);
 
+    Task <GroupUserModel> CreateGroupAsync(string name, Guid [] Users, CancellationToken cancellationToken);
     Task UpdateGroupAsync(string id, string name, Guid[] users, CancellationToken cancellationToken);
 
     
-
 
 }
