@@ -4,9 +4,13 @@ using RestApi.Mappers;
 using RestApi.Services;
 using RestApi.Exceptions;
 using System.Net;
+
+using Microsoft.AspNetCore.Authorization;
+
 namespace RestApi.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 public class GroupsController : ControllerBase {
     private readonly IGroupService _groupService;
@@ -17,6 +21,7 @@ public class GroupsController : ControllerBase {
 
     // localhost:port/groups/28728723
     [HttpGet("{id}")]
+    [Authorize(Policy ="Read")]
     public async Task<ActionResult<GroupResponse>> GetGroupById(string id, CancellationToken cancellationToken) {
         var group = await _groupService.GetGroupByIdAsync(id, cancellationToken);
 
@@ -46,6 +51,13 @@ public class GroupsController : ControllerBase {
         var groups = await _groupService.GetGroupByNameAsync(name, page, pageS, orderBy, cancellationToken);
 
 
+    [HttpGet("like-name")]
+    public async Task<ActionResult<IList<GroupResponse>>> GetGroupByName([FromQuery] string name, 
+    [FromQuery] int page, [FromQuery] int pageS, [FromQuery] string orderBy, CancellationToken cancellationToken){
+        
+        var groups = await _groupService.GetGroupByNameAsync(name, page, pageS, orderBy, cancellationToken);
+
+
         return Ok(groups.Select(group => group.ToDto()).ToList());
     }
 
@@ -54,6 +66,9 @@ public class GroupsController : ControllerBase {
 
 
     [HttpDelete("{id}")]
+    [Authorize(Policy ="Write")]
+
+
 
     public async Task<IActionResult> DeleteGroup(string id, CancellationToken cancellationToken){
         try
@@ -95,6 +110,7 @@ public class GroupsController : ControllerBase {
 
         }
     }
+
 
     private static ValidationProblemDetails NewValidationProblemDetails(string title, HttpStatusCode statusCode, Dictionary<string, string[]>errors){
         return new ValidationProblemDetails{

@@ -83,7 +83,7 @@ public class GroupRepository : IGroupRepository
         var filter= Builders<GroupEntity>.Filter.Eq(x=>x.Id, id);
         var update= Builders<GroupEntity>.Update.Set(s=>s.Users, users);
 
-
         await _groups.UpdateOneAsync(filter, update, cancellationToken:cancellationToken);
 
+    }
 }

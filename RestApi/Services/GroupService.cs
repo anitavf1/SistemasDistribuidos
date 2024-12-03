@@ -2,8 +2,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration.UserSecrets;
 
 using RestApi.Exceptions;
-
-using RestApi.Models;
+odels;
 using RestApi.Repositories;
 
 namespace RestApi.Services;
@@ -63,6 +62,7 @@ public class GroupService : IGroupService
 
        await _groupRepository.DeleteByIdAsync(id, cancellationToken);
     }
+
 
     public async Task<IList<GroupUserModel>> GetGroupByExactNameAsync(string name, int page, int pageS, string orderBy, CancellationToken cancellationToken)
     {

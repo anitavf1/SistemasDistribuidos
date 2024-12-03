@@ -34,7 +34,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddAuthorization();
+
+builder.Services.AddAuthorization(options=>{
+    options.AddPolicy("Read", policy=> policy.RequireClaim("http://schemas.microsoft.com/identity/claims/scope", "read"));
+    options.AddPolicy("Write", policy=> policy.RequireClaim("http://schemas.microsoft.com/identity/claims/scope", "write"));
+
+});
 
 
 var app = builder.Build();
