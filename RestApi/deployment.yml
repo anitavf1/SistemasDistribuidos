@@ -15,10 +15,12 @@ spec:
     spec:
       containers:
       - name: groups-api
+
         image: localhost:5000/groups-api:19
         env:
           - name: "UserServiceEndpoint"
             value: "http://users-api-svc.backend-api.svc.cluster.local:8080/UserService.svc"
+
           - name: "Authentication_Authority"
             value: "http://public.hydra.test"
           - name: "Authentication_Issuer"

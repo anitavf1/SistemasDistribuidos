@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration.UserSecrets;
+
 using RestApi.Exceptions;
-using RestApi.Models;
+odels;
 using RestApi.Repositories;
 
 namespace RestApi.Services;
@@ -16,6 +17,7 @@ public class GroupService : IGroupService
         _groupRepository = groupRepository;
         _userRepository = userRepository;
     }
+
 
     public async Task<GroupUserModel> CreateGroupAsync(string name, Guid[] users, CancellationToken cancellationToken )
     {
@@ -37,7 +39,7 @@ public class GroupService : IGroupService
 
         if(userComparision.Any(user=>user is null)){
             throw new InvalidGroupUserRequest();
-        }
+
 
        return new GroupUserModel {
             Id = group.Id,
@@ -47,6 +49,7 @@ public class GroupService : IGroupService
         };
 
     
+
     }
 
     
@@ -59,6 +62,7 @@ public class GroupService : IGroupService
 
        await _groupRepository.DeleteByIdAsync(id, cancellationToken);
     }
+
 
     public async Task<IList<GroupUserModel>> GetGroupByExactNameAsync(string name, int page, int pageS, string orderBy, CancellationToken cancellationToken)
     {

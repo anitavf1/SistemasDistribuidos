@@ -1,4 +1,6 @@
+
 using System.Reflection.Metadata;
+
 using MongoDB.Bson;
 using MongoDB.Driver;
 using RestApi.Infrastructure.Mongo;
@@ -61,6 +63,7 @@ public class GroupRepository : IGroupRepository
         }
     }
     public async Task<IList<GroupModel>> GetByNameAsync(string name, int page, int pageS, string orderBy, CancellationToken cancellationToken){
+
         var filter = Builders<GroupEntity>.Filter.Regex(group => group.Name, name);
         
         var sort = Builders<GroupEntity>.Sort.Ascending(n => n.Name);
@@ -68,6 +71,7 @@ public class GroupRepository : IGroupRepository
         if (orderBy != "Name") {
             sort = Builders<GroupEntity>.Sort.Descending(n => n.CreatedAt);
         }
+
 
         var groupsOr = _groups.Find(filter).Sort(sort).Skip((page - 1) * pageS).Limit(pageS);
 

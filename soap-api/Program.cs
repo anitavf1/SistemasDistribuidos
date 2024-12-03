@@ -5,6 +5,7 @@ using SoapApi.Infrastructure;
 using SoapApi.Repositories;
 using SoapApi.Services;
 using SoapCore;
+
 using Microsoft.Extensions.Options;
 using System.Drawing;
 using Microsoft.IdentityModel.Tokens;

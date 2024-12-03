@@ -4,7 +4,9 @@ using RestApi.Mappers;
 using RestApi.Services;
 using RestApi.Exceptions;
 using System.Net;
+
 using Microsoft.AspNetCore.Authorization;
+
 namespace RestApi.Controllers;
 
 [ApiController]
@@ -29,6 +31,12 @@ public class GroupsController : ControllerBase {
 
         return Ok(group.ToDto());
     }
+     [HttpGet]
+    public async Task<ActionResult<IList<GroupResponse>>> GetGroupByName([FromQuery] string name, 
+    [FromQuery] int page, [FromQuery] int pageS, [FromQuery] string orderBy, CancellationToken cancellationToken){
+        
+        var groups = await _groupService.GetGroupByNameAsync(name, page, pageS, orderBy, cancellationToken);
+
 
     [HttpGet("like-name")]
     public async Task<ActionResult<IList<GroupResponse>>> GetGroupByName([FromQuery] string name, 
@@ -36,14 +44,30 @@ public class GroupsController : ControllerBase {
         
         var groups = await _groupService.GetGroupByNameAsync(name, page, pageS, orderBy, cancellationToken);
 
+    [HttpGet("like-name")]
+    public async Task<ActionResult<IList<GroupResponse>>> GetGroupByName([FromQuery] string name, 
+    [FromQuery] int page, [FromQuery] int pageS, [FromQuery] string orderBy, CancellationToken cancellationToken){
+        
+        var groups = await _groupService.GetGroupByNameAsync(name, page, pageS, orderBy, cancellationToken);
+
+
+    [HttpGet("like-name")]
+    public async Task<ActionResult<IList<GroupResponse>>> GetGroupByName([FromQuery] string name, 
+    [FromQuery] int page, [FromQuery] int pageS, [FromQuery] string orderBy, CancellationToken cancellationToken){
+        
+        var groups = await _groupService.GetGroupByNameAsync(name, page, pageS, orderBy, cancellationToken);
+
+
         return Ok(groups.Select(group => group.ToDto()).ToList());
     }
 
     
 
 
+
     [HttpDelete("{id}")]
     [Authorize(Policy ="Write")]
+
 
 
     public async Task<IActionResult> DeleteGroup(string id, CancellationToken cancellationToken){
@@ -87,6 +111,7 @@ public class GroupsController : ControllerBase {
         }
     }
 
+
     private static ValidationProblemDetails NewValidationProblemDetails(string title, HttpStatusCode statusCode, Dictionary<string, string[]>errors){
         return new ValidationProblemDetails{
             Title = title,
@@ -96,4 +121,5 @@ public class GroupsController : ControllerBase {
     }
 
     
+
 }
